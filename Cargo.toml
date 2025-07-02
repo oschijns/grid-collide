@@ -1,0 +1,15 @@
+[workspace]
+members = ["crates/grid-collide2d", "crates/grid-collide3d"]
+resolver = "2"
+
+[workspace.package]
+description = "simple grid based collision engine for retro console development"
+authors = ["Olivier Schyns <https://github.com/oschijns>"]
+repository = "https://github.com/oschijns/grid-collide"
+version = "0.0.1"
+edition = "2024"
+license = "MIT"
+
+[patch.crates-io]
+grid-collide2d = { path = "crates/grid-collide2d" }
+grid-collide3d = { path = "crates/grid-collide3d" }
