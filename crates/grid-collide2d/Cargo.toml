@@ -13,9 +13,26 @@ readme.workspace = true
 default = ["2d", "std"]
 2d = []
 
-# enable support for the standard library
-std = ["nalgebra-glm/std", "bvh-arena/std", "spin/std"]
+# Fixed point arithmetic
+fixnum = ["dep:fixnum"]
 
+# enable support for the standard library
+std = [
+    "num-traits/std",
+    "ndarray/std",
+    "gridmap?/std",
+    "fixnum?/std",
+    "nalgebra/std",
+    "nalgebra-glm/std",
+    "bvh-arena/std",
+    "spin/std",
+]
+
+# features related to gridmap
+gridmap = ["dep:gridmap"]
+alloc = ["nalgebra/alloc", "gridmap?/alloc"]
+rayon = ["nalgebra/rayon", "ndarray/rayon", "gridmap?/rayon"]
+serde = ["nalgebra/serde", "ndarray/serde", "gridmap?/serde", "fixnum?/serde"]
 
 # Library configuration
 [lib]
@@ -26,14 +43,24 @@ required-features = ["2d"]
 # Dependencies
 [dependencies]
 
-# Mutable access to shared references
-spin = "0.10"
+# Data layout for each individual tile
+bitfield = "0.19"
+
+# Map data structure
+ndarray = { version = "0.16", default-features = false }
+gridmap = { version = "0.0.2", default-features = false, optional = true }
+
+# Geometry operations
+num-traits = { version = "0.2", default-features = false }
+fixnum = { version = "0.9", default-features = false, optional = true }
+nalgebra = { version = "0.33", default-features = false }
+nalgebra-glm = { version = "0.19", default-features = false }
 
 # Broadphase
 bvh-arena = { version = "1.1", default-features = false }
 
-# Geometry operations
-nalgebra-glm = { version = "0.19", default-features = false }
+# Mutable access to shared references
+spin = "0.10"
 
 # Delegate methods from internal fields
 delegate = "0.13"
